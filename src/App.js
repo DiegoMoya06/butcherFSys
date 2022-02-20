@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useReducer } from 'react';
+import { Provider } from 'react-redux';
 
-function App() {
+import { AppRouter } from './routers/AppRouter';
+import { store } from './store/store';
+import { loadUser } from './actions/auth';
+
+export const App = () => {
+
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={ store }>
+      <AppRouter />
+    </Provider>
   );
 }
-
-export default App;
